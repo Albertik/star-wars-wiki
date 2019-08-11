@@ -15,23 +15,26 @@ const SearchBar = inject('charactersStore')(
 		const formRef = useRef<any>();
 		const inputFocus = useRef<any>();
 
+		useEffect(() => {
+			// add when mounted
+			document.addEventListener('mousedown', handleClick);
+			document.addEventListener('touchstart', handleClick);
+			// cleanup event when unmounted
+			return () => {
+				document.removeEventListener('mousedown', handleClick);
+				document.removeEventListener('touchstart', handleClick);
+			};
+		}, []);
+
 		const handleClick = (e: Event) => {
 			if (formRef.current.contains(e.target)) {
 				// click was inside form, do nothing
 				return;
 			}
 
-			!input.length && setBarOpened(false);
+			inputFocus.current.blur();
+			setBarOpened(false);
 		};
-
-		useEffect(() => {
-			// add when mounted
-			document.addEventListener('mousedown', handleClick);
-			// cleanup event when unmounted
-			return () => {
-				document.removeEventListener('mousedown', handleClick);
-			};
-		}, [handleClick]);
 
 		const onChange = (e: React.FormEvent<HTMLFormElement>) => {
 			e.preventDefault();
@@ -43,8 +46,9 @@ const SearchBar = inject('charactersStore')(
 			charactersStore!.changeSearchFilter(searchFilter);
 		};
 
-		const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		const onFormSubmit = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
 			e.preventDefault();
+			inputFocus.current.blur();
 			setBarOpened(false);
 		};
 
@@ -59,7 +63,9 @@ const SearchBar = inject('charactersStore')(
 				ref={formRef}
 			>
 				<StyledInput value={input} onChange={onChange} ref={inputFocus} placeholder="Search for a character..." />
-				<StyledButton barOpened={barOpened}>Search</StyledButton>
+				<StyledButton onTouchEnd={onFormSubmit} barOpened={barOpened}>
+					Search
+				</StyledButton>
 			</StyledForm>
 		);
 	})
@@ -76,10 +82,12 @@ const StyledForm = styled.form<{ barOpened: boolean }>`
 	/* If bar opened, normal cursor on the whole form. If closed, show pointer on the whole form so user knows he can click to open it */
 	cursor: ${props => (props.barOpened ? 'auto' : 'pointer')};
 	padding: 1rem;
-	height: 1rem;
+	height: 2rem;
+	margin: 0 auto;
 	border-radius: 10rem;
 	transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
-	width: ${props => (props.barOpened ? 'calc(100% - 3rem)' : '2rem')};
+	width: ${props => (props.barOpened ? 'calc(100% - 3rem)' : '3rem')};
+	font-size: 14px;
 
 	@media (min-width: 600px) {
 		width: ${props => (props.barOpened ? '30rem' : '2rem')};
@@ -87,8 +95,7 @@ const StyledForm = styled.form<{ barOpened: boolean }>`
 `;
 
 const StyledInput = styled.input<any>`
-	font-size: 14px;
-	line-height: 1;
+	line-height: 2;
 	background-color: transparent;
 	width: 100%;
 	margin-left: ${props => (props.barOpened ? '1rem' : '0rem')};
@@ -106,13 +113,20 @@ const StyledInput = styled.input<any>`
 `;
 
 const StyledButton = styled.button<{ barOpened: boolean }>`
-	line-height: 1;
+	line-height: 2;
+	text-align: center;
+	margin: 0 auto;
 	pointer-events: ${props => (props.barOpened ? 'auto' : 'none')};
 	cursor: ${props => (props.barOpened ? 'pointer' : 'none')};
 	background-color: transparent;
 	border: none;
 	outline: none;
+	margin-left: -5px;
 	color: ${props => props.theme.fg};
+
+	@media (min-width: 700px) {
+		margin-left: 0;
+	}
 `;
 
 export default SearchBar;
