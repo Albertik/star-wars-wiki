@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import CharactersContainer from '../containers/CharactersContainer';
-import SearchBar from './nav/SearchBar';
+import Navigation from './nav/Navigation';
 
 const Main = () => {
 	return (
 		<StyledCrossFadeContainer>
-			<StyledSearchBar>
-				<SearchBar />
-			</StyledSearchBar>
+			<Navigation />
 			<Heading />
 			<CharactersContainer />
 		</StyledCrossFadeContainer>
@@ -28,19 +26,11 @@ const StyledCrossFadeContainer = styled.main`
 	position: relative;
 	min-height: 100%;
 	padding: 1px 0 0;
-	margin: 75px auto 0;
+	margin: 100px auto 0;
 `;
 
 const StyledHeading = styled.h1`
 	text-align: center;
-`;
-
-const StyledSearchBar = styled.div`
-	position: fixed;
-	top: 95px;
-	right: 45px;
-	padding-left: 15px;
-	z-index: 10;
 `;
 
 export default Main;

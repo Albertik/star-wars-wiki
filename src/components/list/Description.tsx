@@ -26,7 +26,7 @@ const Description = ({ item, isDetailed }: Props) => {
 				<CharacterEmoji gender={gender} />
 				<Favorite id={id} />
 				<StyledParagraph isDetailed={isDetailed}>
-					<strong>{name}</strong> - was born at {bornAt} Before the Battle of Yavin.
+					{name} - was born at {bornAt} Before the Battle of Yavin.
 					<StyledCapitalize> {possessivePronoun}</StyledCapitalize> eye color is {eye_color}, {hairColor}.
 				</StyledParagraph>
 			</div>
@@ -68,6 +68,14 @@ const StyledParagraph = styled.p<{ isDetailed: boolean }>`
 
 const StyledLink = styled(Link)`
 	padding-right: 10px;
+	text-decoration: none;
+	color: ${props => props.theme.bg};
+	font-weight: bold;
+	:hover {
+		transition: color 0.5s;
+		color: ${props => props.theme.bgWithOpacity(0.5)};
+		text-decoration: underline;
+	}
 `;
 
 export default Description;

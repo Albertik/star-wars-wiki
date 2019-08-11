@@ -10,9 +10,19 @@ type Props = {
 const SearchBar = inject('charactersStore')(
 	observer(({ charactersStore }: Props) => {
 		const isActiveSearch = charactersStore!.searchFilter.searchTerm.length !== 0;
+		const [input, setInput] = useState(charactersStore!.searchFilter.searchTerm);
 		const [barOpened, setBarOpened] = useState(isActiveSearch);
 		const formRef = useRef<any>();
 		const inputFocus = useRef<any>();
+
+		const handleClick = (e: Event) => {
+			if (formRef.current.contains(e.target)) {
+				// click was inside form, do nothing
+				return;
+			}
+
+			!input.length && setBarOpened(false);
+		};
 
 		useEffect(() => {
 			// add when mounted
@@ -21,15 +31,7 @@ const SearchBar = inject('charactersStore')(
 			return () => {
 				document.removeEventListener('mousedown', handleClick);
 			};
-		}, []);
-
-		const handleClick = (e: Event) => {
-			if (formRef.current.contains(e.target)) {
-				// click was inside form, do nothing
-				return;
-			}
-			setBarOpened(false);
-		};
+		}, [handleClick]);
 
 		const onChange = (e: React.FormEvent<HTMLFormElement>) => {
 			e.preventDefault();
@@ -37,6 +39,7 @@ const SearchBar = inject('charactersStore')(
 			let searchFilter = Object.assign({}, charactersStore!.searchFilter);
 
 			searchFilter.searchTerm = element.value;
+			setInput(element.value);
 			charactersStore!.changeSearchFilter(searchFilter);
 		};
 
@@ -55,12 +58,7 @@ const SearchBar = inject('charactersStore')(
 				onSubmit={onFormSubmit}
 				ref={formRef}
 			>
-				<StyledInput
-					value={charactersStore!.searchFilter.searchTerm}
-					onChange={onChange}
-					ref={inputFocus}
-					placeholder="Search for a character..."
-				/>
+				<StyledInput value={input} onChange={onChange} ref={inputFocus} placeholder="Search for a character..." />
 				<StyledButton barOpened={barOpened}>Search</StyledButton>
 			</StyledForm>
 		);
@@ -77,8 +75,8 @@ const StyledForm = styled.form<{ barOpened: boolean }>`
 	/* Change width of the form depending if the bar is opened or not */
 	/* If bar opened, normal cursor on the whole form. If closed, show pointer on the whole form so user knows he can click to open it */
 	cursor: ${props => (props.barOpened ? 'auto' : 'pointer')};
-	padding: 2rem;
-	height: 2rem;
+	padding: 1rem;
+	height: 1rem;
 	border-radius: 10rem;
 	transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
 	width: ${props => (props.barOpened ? 'calc(100% - 3rem)' : '2rem')};

@@ -20,7 +20,7 @@ const StyledList = styled.ul`
 
 const StyledWithoutResults = styled.p`
 	padding: 1em 2rem;
-	margin: 0 auto;
+	margin: 100px auto;
 	text-align: center;
 `;
 

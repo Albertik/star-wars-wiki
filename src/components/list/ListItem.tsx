@@ -26,15 +26,16 @@ const StyledListItem = styled.li`
 	flex-direction: column;
 	margin-bottom: 15px;
 	padding: 1em;
-	margin: 1em 2rem;
+	margin: 1em auto;
 	animation: fadeIn 0.5s linear;
 	animation-fill-mode: both;
-	border: 5px solid ${props => props.theme.fg};
-	box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.25);
+	border: 5px solid transparent;
+	box-shadow: 10px 10px 10px 5px rgba(0, 0, 0, 0.25);
+	max-width: 765px;
 
-	:last-child {
+	/* :last-child {
 		border-bottom: 5px solid ${props => props.theme.fg};
-	}
+	} */
 
 	@keyframes fadeIn {
 		0% {

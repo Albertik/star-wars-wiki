@@ -46,6 +46,10 @@ export class CharactersStore {
 	getCharacters() {
 		let values = Array.from(this.charactersRegistry!.values());
 
+		if (this.searchFilter.visibility === Visibility.Favourite) {
+			values = values.filter((v: CharacterType) => v.favourite);
+		}
+
 		if (this.searchFilter.searchTerm) {
 			values = values.filter((v: CharacterType) => v.name.toLowerCase().search(this.searchFilter.searchTerm.toLowerCase()) > -1);
 		}

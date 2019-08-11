@@ -31,11 +31,14 @@ const StyledFixedHeader = styled.header`
 const StyledFixedHeaderPlaceholder = styled.div`
 	display: block;
 	height: 7rem;
+	margin-bottom: 4rem;
 `;
 
 const StyledLogo = styled.div`
 	padding: 10px 0;
-	background-color: ${props => props.theme.fg};
+	height: 10rem;
+	background-image: linear-gradient(${props => props.theme.fg}, ${props => props.theme.fgWithOpacity(0)});
+	/* background-color: ${props => props.theme.fg}; */
 
 	svg {
 		height: 80px;

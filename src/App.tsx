@@ -10,7 +10,9 @@ import сharactersStore from './stores/CharactersStore';
 // Define our `fg` and `bg` on the theme
 const theme = {
 	fg: 'rgb(255, 232, 31)',
-	bg: '#000'
+	fgWithOpacity: (opacity: number) => `rgb(255, 232, 31, ${opacity})`,
+	bg: '#000',
+	bgWithOpacity: (opacity: number) => `rgb(0, 0, 0, ${opacity})`
 };
 
 const App: React.FC = () => {
