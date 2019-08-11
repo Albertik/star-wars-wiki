@@ -5,6 +5,7 @@ import List from '../components/list/List';
 import ListItem from '../components/list/ListItem';
 import { withRouter } from 'react-router-dom';
 import { CharacterType } from '../types/index';
+import styled from 'styled-components';
 
 type Props = {
 	charactersStore?: CharactersStore;
@@ -33,9 +34,26 @@ class CharactersContainer extends Component<Props, State> {
 		if (id && character) {
 			return <ListItem loading={isLoading} error={error} isDetailed={true} item={character} />;
 		} else {
-			return <List loading={isLoading} error={error} items={characters} />;
+			return (
+				<List loading={isLoading} error={error} items={characters}>
+					<Heading />
+				</List>
+			);
 		}
 	}
 }
+
+const Heading = () => (
+	<StyledHeading>
+		Characters{' '}
+		<span aria-label="Character image" role="img">
+			🤷
+		</span>
+	</StyledHeading>
+);
+
+const StyledHeading = styled.h1`
+	text-align: center;
+`;
 
 export default withRouter<any, any>(CharactersContainer);

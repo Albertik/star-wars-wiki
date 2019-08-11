@@ -12,7 +12,7 @@ export const Spinner = () => {
 
 const StyledSpinner = styled.div`
 	display: block;
-	margin: 100px auto;
+	margin: 20vh auto;
 	position: relative;
 	width: 64px;
 	height: 64px;

@@ -11,7 +11,7 @@ type Props = {
 
 const ListItem = (props: Props) => {
 	return (
-		<StyledListItem>
+		<StyledListItem isDetailed={props.isDetailed}>
 			<StyledListItemContent>
 				<Description {...props} />
 			</StyledListItemContent>
@@ -19,14 +19,15 @@ const ListItem = (props: Props) => {
 	);
 };
 
-const StyledListItem = styled.li`
+const StyledListItem = styled.li<{ isDetailed: boolean }>`
+	min-height: ${props => (props.isDetailed ? '50vh' : '100%')};
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	margin-bottom: 15px;
 	padding: 1em;
-	margin: 1em auto;
+	margin: ${props => (props.isDetailed ? '6em auto' : '1em auto')} ;
 	animation: fadeIn 0.5s linear;
 	animation-fill-mode: both;
 	border: 5px solid transparent;
