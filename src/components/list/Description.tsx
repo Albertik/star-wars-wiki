@@ -10,15 +10,32 @@ type Props = {
 };
 
 const Description = ({ item, isDetailed }: Props) => {
-	if (item) {
-		let { name, gender, birth_year, eye_color, hair_color, url } = item;
+	const getIdFromUrl = (url: string, index = 2): number => {
 		let urlParts = url.split('/');
-		let id = parseInt(urlParts[urlParts.length - 2]);
+		return parseInt(urlParts[urlParts.length - index]);
+	};
+
+	if (item) {
+		let { name, gender, birth_year, eye_color, hair_color, skin_color, url, mass, height, films, starships } = item;
+		let id = getIdFromUrl(url);
 		let pronoun = gender === 'male' ? 'he' : gender === 'female' ? 'she' : 'it';
 		let possessivePronoun = gender === 'male' ? 'his' : gender === 'female' ? 'her' : 'its';
 		let years = parseInt(birth_year.substr(0, birth_year.length - 3));
 		let bornAt = years > 1 ? `${years} years` : `${years} year`;
 		let hairColor = hair_color === 'n/a' ? `${pronoun} does not have hair` : `${possessivePronoun} hair color is ${hair_color}`;
+		let skinColor = skin_color === 'n/a' ? ' robot has no skin' : ` ${possessivePronoun} skin color is ${skin_color}`;
+		let filmsArray = films.map(f => getIdFromUrl(f));
+		let appearsInEpisodes =
+			filmsArray.length === 1
+				? `Appears in episode ${filmsArray.join('')}(film id)`
+				: `Appears in episodes ${filmsArray.join(',')}(ids of films)`;
+		let starshipsArray = starships.map(f => getIdFromUrl(f));
+		let hasStarships =
+			starshipsArray.length === 0
+				? 'does not have any starship'
+				: starshipsArray.length === 1
+				? `${pronoun} has this starship ${starshipsArray.join(',')}(starship id)`
+				: `${pronoun} has these starships ${starshipsArray.join(',')}(starship ids)`;
 
 		return (
 			<div>
@@ -27,7 +44,15 @@ const Description = ({ item, isDetailed }: Props) => {
 				<Favorite id={id} />
 				<StyledParagraph isDetailed={isDetailed}>
 					{name} - was born at {bornAt} Before the Battle of Yavin.
-					<StyledCapitalize> {possessivePronoun}</StyledCapitalize> eye color is {eye_color}, {hairColor}.
+					<StyledCapitalize> {possessivePronoun}</StyledCapitalize> eye color is {eye_color}, {hairColor} and
+					{isDetailed ? (
+						<span>
+							{skinColor}.<StyledCapitalize> {possessivePronoun}</StyledCapitalize> weigth is {mass} kilogrammes and {possessivePronoun}{' '}
+							height is {height}. {appearsInEpisodes} and {hasStarships}.
+						</span>
+					) : (
+						'...'
+					)}
 				</StyledParagraph>
 			</div>
 		);

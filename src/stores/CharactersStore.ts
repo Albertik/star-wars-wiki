@@ -70,12 +70,11 @@ export class CharactersStore {
 					let { results } = data;
 					let values = this.charactersRegistry;
 
-					results = results.map((c: CharacterType, index: number) =>
-						Object.assign(
-							{ favourite: values.get((index + 1).toString()) && (values.get((index + 1).toString()) || { favourite: false }).favourite },
-							c
-						)
-					);
+					results = results.map((c: CharacterType, index: number) => {
+						//default favourite to false
+						let favourite = (values.get((index + 1).toString()) || { favourite: false }).favourite;
+						return Object.assign({ favourite }, c);
+					});
 
 					this.clear();
 

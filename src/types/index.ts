@@ -11,6 +11,7 @@ export interface CharacterType {
 	isDeleted: boolean;
 	favourite: boolean;
 	url: string;
+	starships: string[];
 }
 
 export enum Visibility {
