@@ -1,22 +1,22 @@
 ## Urban - Technical Test Overview
 
-• Build a 'wiki' on characters, planets, and starships using The Star Wars Api (https://swapi.co/) in a SPA with a favourites list feature.
-• We'd like you to use a Front End Framework of some sort, React/Angular/Vue.js etc, whatever you're most comfortable with.
-• The design and structure is completely of your choosing. Feel free to use a CSS framework too, we don't expect it to be an award winning design just something that takes into account your ideas on usability.
-• Each character should have a 'Favourite' button which allows the user to save this character as a favourite. Displaying these favourites somehow and the ability to remove them again from the list (and from the character page) should be implemented but is up to you on how and where this is displayed. Storing this data in memory or localstorage is fine. It only needs to persist for the current session.
+* Build a 'wiki' on characters, planets, and starships using The Star Wars Api (https://swapi.co/) in a SPA with a favourites list feature.
+* We'd like you to use a Front End Framework of some sort, React/Angular/Vue.js etc, whatever you're most comfortable with.
+* The design and structure is completely of your choosing. Feel free to use a CSS framework too, we don't expect it to be an award winning design just something that takes into account your ideas on usability.
+* Each character should have a 'Favourite' button which allows the user to save this character as a favourite. Displaying these favourites somehow and the ability to remove them again from the list (and from the character page) should be implemented but is up to you on how and where this is displayed. Storing this data in memory or localstorage is fine. It only needs to persist for the current session.
 Implementation
-• The homepage should include a list of characters (the first page of characters in the `/people/` response from the API is sufficient).
-• Each character should then have their own profile page
-• Your homepage should include a search box that filters the characters shown on the
+* The homepage should include a list of characters (the first page of characters in the `/people/` response from the API is sufficient).
+* Each character should then have their own profile page
+* Your homepage should include a search box that filters the characters shown on the
 screen, searching by name only is enough.
-• Loading states should be taken into account.
-• The data you choose to display on each screen is up to you.
-• Basic error handling is sufficient.
+* Loading states should be taken into account.
+* The data you choose to display on each screen is up to you.
+* Basic error handling is sufficient.
 
 ## Notes
 
-• It only needs to work in the latest version of whatever browser you use - just let us know which one.
-• Please include basic instructions on how to build and setup your project.
+* It only needs to work in the latest version of whatever browser you use - just let us know which one.
+* Please include basic instructions on how to build and setup your project.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
